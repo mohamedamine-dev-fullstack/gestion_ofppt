@@ -25,8 +25,8 @@ class PersonnelController extends Controller
              $query->where('cin', request()->cin);
         }
 
-        if(request()->id_etab){
-             $query->where('id_etab', request()->id_etab);
+        if(request()->idEtab){
+             $query->where('idEtab', request()->idEtab);
         }
          
         // secure sorting
@@ -56,7 +56,7 @@ class PersonnelController extends Controller
      */
     public function show(string $id)
     {
-        $p = Personnel::with('etablissement')->findOrFail($id);
+        $p = Personnel::with(['etablissement','conges','absences'])->findOrFail($id);
 
         return new PersonnelResource($p);
     }

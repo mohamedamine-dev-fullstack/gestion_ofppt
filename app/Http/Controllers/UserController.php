@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-         $query = User::with('administratif');
+         $query = User::with('personnel');
 
          if(request()->name){
                $query->where('name','like','%'.request()->name.'%');
@@ -29,6 +30,7 @@ class UserController extends Controller
               $query->where('role', request()->role);
         }
 
+        // secure sorting
         if(request()->sort_by){
              $query->orderBy(request()->sort_by, request()->order ?? 'asc');
         }
@@ -47,7 +49,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = Hash::make($data['password']);
+       
         $user = User::create($data);
         
         return new UserResource($user);
@@ -59,7 +62,7 @@ class UserController extends Controller
     public function show(string $id)
     {
          return new UserResource(
-            User::with('administratif')->findOrFail($id)
+            User::with('personnel')->findOrFail($id)
         );
     }
 
@@ -73,7 +76,7 @@ class UserController extends Controller
         $data = $request->validated();
 
         if(isset($data['password'])){
-            $data['password'] = bcrypt($data['password']);
+            $data['password'] = Hash::make($data['password']);
         }
  
         $user->update($data);
