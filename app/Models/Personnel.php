@@ -51,8 +51,4 @@ class Personnel extends Model
         return $this->belongsToMany(Specialite::class, 'enseigner', 'idPersonnel', 'idSpecialite');
     } 
 
-    public function specialite()
-    {
-        return $this->belongsTo(Specialite::class, 'idSpecialite');
-    }
 }
