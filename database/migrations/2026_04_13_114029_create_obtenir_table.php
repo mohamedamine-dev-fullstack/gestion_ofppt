@@ -12,20 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('obtenir', function (Blueprint $table) {
-             $table->unsignedBigInteger('idPersonnel');
-             $table->unsignedBigInteger('idDiplome');
+            $table->foreignId('idPersonnel')
+                  ->constrained('personnels', 'idPersonnel')
+                  ->cascadeOnDelete();
 
-             $table->foreign('idPersonnel')
-                  ->references('idPersonnel')
-                 ->on('personnels')
-                ->onDelete('cascade');
+            $table->foreignId('idDiplome')
+                  ->constrained('diplomes', 'idDiplome')
+                  ->cascadeOnDelete();
 
-             $table->foreign('idDiplome')
-                ->references('idDiplome')
-                ->on('diplomes')
-                ->onDelete('cascade');
-
-             $table->primary(['idPersonnel', 'idDiplome']);
+            $table->primary(['idPersonnel', 'idDiplome']);
         });
     }
 

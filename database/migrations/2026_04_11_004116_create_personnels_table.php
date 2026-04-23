@@ -15,6 +15,9 @@ return new class extends Migration
 
             $table->id('idPersonnel'); // مهم
             
+            $table->enum('type_personnel', ['formateur', 'administratif']);
+            $table->enum('statut', ['permanent', 'vacataire']);
+            
             // 1. Informations personnelles
             $table->string('CIN')->unique();
             $table->string('nom');
@@ -23,10 +26,6 @@ return new class extends Migration
             $table->string('situation_familiale')->nullable();
             $table->string('adresse')->nullable();
             $table->string('telephone')->nullable();
-            
-            $table->enum('type_personnel', ['formateur', 'administratif']);
-            $table->enum('statut', ['permanent', 'vacataire']);
-        
             $table->string('grade')->nullable();
             $table->string('echelon')->nullable();
             $table->string('fonction')->nullable();
