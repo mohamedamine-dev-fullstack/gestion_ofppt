@@ -12,17 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('absences', function (Blueprint $table) {
-          
-           $table->id('id_absence');
+           $table->id('idAbsence');
            $table->date('date_absence');
-           $table->string('motif');
+           $table->string('motif')->nullable();
 
-           //relation
-           $table->foreignId('id_personnel')
-                 ->constrained('personnels', 'id_personnel')
-                 ->cascadeOnDelete();
+           $table->foreignId('idPersonnel')
+                 ->constrained('personnels', 'idPersonnel')
+                 ->onDelete('cascade');
 
-                 
            $table->timestamps();
         });
     }

@@ -6,19 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conge extends Model
 {
-    
-    protected $primaryKey = 'id_conge';
+    protected $table = 'conges';
+    protected $primaryKey = 'idConge';
 
-    protected $fillable = [ 
+    protected $fillable = [
         'date_debut',
         'date_fin',
-        'type_conge'
+        'date_demande',
+        'type_conge',
+        'statut',
+        'idPersonnel'
     ];
 
-    
-    public function administratif()
+    public function personnel()
     {
-        return $this->belongsTo(Administratif::class, 'id_personnel');
+        return $this->belongsTo(Personnel::class, 'idPersonnel');
     }
-    
 }

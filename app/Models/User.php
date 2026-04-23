@@ -2,36 +2,37 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * The table associated with the model.
      */
-    protected $fillable = [
-      'name',
-      'email',
-      'password',
-      'role',
-      'id_personnel'
-     ];
+    protected $table = 'users';
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Primary key
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Mass assignable attributes
+     */
+    protected $fillable = [
+        'username',
+        'password',
+        'Role',
+        'idPersonnel'
+    ];
+
+    /**
+     * Hidden attributes
      */
     protected $hidden = [
         'password',
@@ -39,20 +40,20 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Attribute casting
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
 
-    public function administratif()
+    /**
+     * Relation with Personnel
+     */
+    public function personnel()
     {
-        return $this->hasOne(Administratif::class, 'id_personnel');
+        return $this->belongsTo(Personnel::class, 'idPersonnel');
     }
 }

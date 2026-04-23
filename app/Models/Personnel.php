@@ -4,53 +4,50 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Etablissement;
-use App\Models\Formateur;
+use App\Models\Diplome;
+use App\Models\Specialite;
+use App\Models\Absence;
+use App\Models\Conge;
 
 class Personnel extends Model
 {
-    protected $primaryKey = 'id_personnel';
+    protected $table = 'personnels';
+    protected $primaryKey = 'idPersonnel';
 
     protected $fillable = [
-        'nom',
-        'prenom',
-        'date_naissance',
-        'lieu_naissance',
-        'cin',
-        'situation_familiale',
-        'nombre_enfants',
-        'telephone',
-        'adresse_actuelle',
-        'diplomes',
-        'specialite_origine',
-        'contact_nom',
-        'contact_telephone',
-        'id_etab',
-        'id_absence'
+        'CIN','nom','prenom','date_naissance','situation_familiale',
+        'adresse','telephone','type_personnel','statut',
+        'grade','echelon','fonction','contact_nom','contact_telephone',
+        'idEtab','idSpecialiteOrigine'
     ];
 
     public function etablissement()
     {
-        return $this->belongsTo(Etablissement::class, 'id_etab');
+        return $this->belongsTo(Etablissement::class, 'idEtab');
     }
 
-    public function formateur()
+    public function user()
     {
-        return $this->hasOne(Formateur::class, 'id_personnel');
+        return $this->hasOne(User::class, 'idPersonnel');
     }
 
-    public function administratif()
-    {
-        return $this->hasOne(Administratif::class, 'id_personnel');
-    }
-
-    /*public function conges()
-    {
-        return $this->hasMany(Conge::class, 'id_personnel');
-    }
-    */
     public function absences()
     {
-        return $this->hasMany(Absence::class, 'id_absence');
+        return $this->hasMany(Absence::class, 'idPersonnel');
     }
 
+    public function conges()
+    {
+        return $this->hasMany(Conge::class, 'idPersonnel');
+    }
+
+    public function diplomes()
+    {
+        return $this->belongsToMany(Diplome::class, 'obtenir', 'idPersonnel', 'idDiplome');
+    }
+
+    public function enseignements()
+    {
+        return $this->belongsToMany(Diplome::class, 'enseigner', 'idPersonnel', 'idDiplome');
+    }
 }

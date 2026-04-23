@@ -7,7 +7,8 @@ use App\Models\Personnel;
 
 class Etablissement extends Model
 {
-    protected $primaryKey = 'id_etab';
+    protected $table = 'etablissements';
+    protected $primaryKey = 'idEtab';
 
     protected $fillable = [
         'nom',
@@ -16,6 +17,6 @@ class Etablissement extends Model
 
     public function personnels()
     {
-        return $this->hasMany(Personnel::class, 'id_etab');
+        return $this->hasMany(Personnel::class, 'idEtab');
     }
 }
