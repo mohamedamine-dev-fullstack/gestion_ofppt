@@ -20,8 +20,8 @@ return new class extends Migration
              $table->string('statut');
 
              $table->foreignId('idPersonnel')
-                  ->constrained('personnels', 'idPersonnel')
-                 ->onDelete('cascade');
+                   ->constrained('personnels', 'idPersonnel')
+                   ->onDelete('cascade');
 
              $table->timestamps();
     });

@@ -16,11 +16,11 @@ return new class extends Migration
                   ->constrained('personnels', 'idPersonnel')
                   ->cascadeOnDelete();
 
-            $table->foreignId('idDiplome')
-                  ->constrained('diplomes', 'idDiplome')
+            $table->foreignId('idSpecialite')
+                  ->constrained('specialites', 'idSpecialite')
                   ->cascadeOnDelete();
 
-            $table->primary(['idPersonnel', 'idDiplome']);
+            $table->primary(['idPersonnel', 'idSpecialite']);
         });
     }
 

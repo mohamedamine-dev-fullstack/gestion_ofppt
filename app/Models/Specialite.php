@@ -8,6 +8,8 @@ class Specialite extends Model
 {
     protected $primaryKey = 'idSpecialite';
 
+    protected $fillable = ['nom_specialite'];
+    
     public function personnels()
     {
         return $this->belongsToMany(

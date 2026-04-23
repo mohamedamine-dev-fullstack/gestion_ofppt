@@ -24,7 +24,9 @@ return new class extends Migration
             $table->string('prenom');
             $table->date('date_naissance')->nullable();
             $table->string('situation_familiale')->nullable();
-            $table->string('adresse')->nullable();
+            $table->string('adresse_actuelle')->nullable();
+            $table->string('lieu_naissance')->nullable();
+            $table->string('nombre_enfant')->nullable();
             $table->string('telephone')->nullable();
             $table->string('grade')->nullable();
             $table->string('echelon')->nullable();
@@ -41,7 +43,7 @@ return new class extends Migration
 
              $table->foreignId('idSpecialiteOrigine')
                    ->nullable()
-                   ->constrained('specialites', 'idSpecialite')
+                   ->constrained('specialites', 'idSpecialiteOrigine')
                    ->nullOnDelete();
             $table->timestamps();
         });
