@@ -41,9 +41,9 @@ return new class extends Migration
                    ->constrained('etablissements', 'idEtab')
                    ->onDelete('cascade');
 
-             $table->foreignId('idSpecialiteOrigine')
+             $table->foreignId('idSpecialite')
                    ->nullable()
-                   ->constrained('specialites', 'idSpecialiteOrigine')
+                   ->constrained('specialites', 'idSpecialite')
                    ->nullOnDelete();
             $table->timestamps();
         });
