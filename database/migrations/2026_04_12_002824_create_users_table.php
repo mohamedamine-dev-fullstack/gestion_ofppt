@@ -15,8 +15,9 @@ return new class extends Migration
            
            $table->id();//iduser
            $table->string('username')->unique();
+           $table->string('email');
            $table->string('password');
-           $table->enum('Role', ['directeur', 'gestionnaire']);
+           $table->enum('Role', ['directeur du complexe', 'gestionnaire CFMR']);
 
            $table->foreignId('idPersonnel')
                  ->unique()

@@ -15,10 +15,13 @@ class AbsenceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id_absence,
+            'id' => $this->idAbsence,
             'date_absence' => $this->date_absence,
             'motif' => $this->motif,
-            'id_personnel' => $this->id_personnel,
+            
+            'personnel' => new PersonnelResource(
+                $this->whenLoaded('personnel')
+            ),
         ];
     }
 }

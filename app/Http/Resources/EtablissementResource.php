@@ -15,9 +15,15 @@ class EtablissementResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id_etab,
+            'id' => $this->idEtab,
             'nom' => $this->nom,
             'ville' => $this->ville,
+
+            'personnels' => PersonnelResource::collection(
+                $this->whenLoaded('personnels')
+            ),
+
+            'personnels_count' => $this->whenCounted('personnels'),
         ];
     }
 }

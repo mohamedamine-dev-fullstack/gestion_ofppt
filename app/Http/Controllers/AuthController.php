@@ -41,7 +41,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'role' => 'required|in:directeur du complexe,gestionnaire CFMR',
-            'id_personnel' => 'required|exists:administratifs,id_personnel'
+            'idPersonnel' => 'required|exists:personnels,id'
         ]);
 
         $data['password'] = Hash::make($data['password']);

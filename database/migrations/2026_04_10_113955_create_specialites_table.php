@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('specialites', function (Blueprint $table) {
            $table->id('idSpecialite');
            $table->string('nom_specialite');
+           $table->enum('type_specialite', ['origine', 'enseignee']);
            $table->timestamps();
         });
     }

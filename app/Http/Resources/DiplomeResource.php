@@ -14,6 +14,16 @@ class DiplomeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->idDiplome,
+            'nom_diplome' => $this->nom_diplome,
+
+            'personnels' => PersonnelResource::collection(
+                $this->whenLoaded('personnels')
+            ),
+
+            'personnels_count' => $this->whenCounted('personnels'),
+        ];
+    
     }
 }

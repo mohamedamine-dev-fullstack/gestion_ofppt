@@ -19,15 +19,15 @@ return new class extends Migration
             $table->enum('statut', ['permanent', 'vacataire']);
             
             // 1. Informations personnelles
-            $table->string('CIN')->unique();
+            $table->string('cin')->unique();
             $table->string('nom');
             $table->string('prenom');
             $table->date('date_naissance')->nullable();
             $table->string('situation_familiale')->nullable();
             $table->string('adresse_actuelle')->nullable();
             $table->string('lieu_naissance')->nullable();
-            $table->string('nombre_enfant')->nullable();
-            $table->string('telephone')->nullable();
+            $table->integer('nombre_enfant')->nullable();
+            $table->string('telephone', 20)->nullable();
             $table->string('grade')->nullable();
             $table->string('echelon')->nullable();
             $table->string('fonction')->nullable();

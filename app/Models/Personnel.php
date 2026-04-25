@@ -15,10 +15,22 @@ class Personnel extends Model
     protected $primaryKey = 'idPersonnel';
 
     protected $fillable = [
-        'CIN','nom','prenom','date_naissance','situation_familiale',
-        'adresse','telephone','type_personnel','statut',
-        'grade','echelon','fonction','contact_nom','contact_telephone',
-        'idEtab','idSpecialiteOrigine'
+        'CIN',
+        'nom',
+        'prenom',
+        'type_personnel',
+        'statut',
+        'date_naissance',
+        'situation_familiale',
+        'adresse_actuelle',
+        'telephone',
+        'grade',
+        'echelon',
+        'fonction',
+        'contact_nom',
+        'contact_telephone',
+        'idEtab',
+        'idSpecialite'
     ];
 
     public function etablissement()
@@ -39,6 +51,11 @@ class Personnel extends Model
     public function conges()
     {
         return $this->hasMany(Conge::class, 'idPersonnel');
+    }
+
+      public function specialite()
+    {
+        return $this->belongsTo(Specialite::class, 'idSpecialite');
     }
 
     public function diplomes()

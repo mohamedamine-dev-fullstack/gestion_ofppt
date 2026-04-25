@@ -21,8 +21,12 @@ class SpecialiteController extends Controller
             $query->where('nom_specialite', 'like', '%' . $request->nom_specialite . '%');
         }
 
+        if ($request->filled('type_specialite')) {
+            $query->where('type_specialite', 'like', '%' . $request->type_specialite . '%');
+        }
+
         //  secure sorting
-        $allowedSorts = ['nom_specialite','created_at'];
+        $allowedSorts = ['nom_specialite','type_specialite','created_at'];
         
         if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
             $query->orderBy($request->sort_by, $request->order ?? 'asc');

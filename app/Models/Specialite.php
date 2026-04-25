@@ -8,7 +8,7 @@ class Specialite extends Model
 {
     protected $primaryKey = 'idSpecialite';
 
-    protected $fillable = ['nom_specialite'];
+    protected $fillable = ['nom_specialite','type_specialite'];
     
     public function personnels()
     {

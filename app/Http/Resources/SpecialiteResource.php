@@ -14,6 +14,16 @@ class SpecialiteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->idSpecialite,
+            'nom_specialite' => $this->nom_specialite,
+            'type_specialite' => $this->type_specialite,
+
+            'personnels' => PersonnelResource::collection(
+                $this->whenLoaded('personnels')
+            ),
+
+            'personnels_count' => $this->whenCounted('personnels'),
+        ];
     }
 }

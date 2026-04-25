@@ -15,11 +15,16 @@ class CongeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id_conge,
+            'id' => $this->idConge,
             'date_debut' => $this->date_debut,
             'date_fin' => $this->date_fin,
+            'date_demande' => $this->date_demande,
             'type_conge' => $this->type_conge,
-            'id_personnel' => $this->id_personnel,
+            'statut' => $this->statut,
+            
+            'personnel' => new PersonnelResource(
+                $this->whenLoaded('personnel')
+            ),
         ];
     }
 }
