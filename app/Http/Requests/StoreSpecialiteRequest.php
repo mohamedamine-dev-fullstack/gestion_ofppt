@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFormateurRequest extends FormRequest
+class StoreSpecialiteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,9 +23,7 @@ class StoreFormateurRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-            'id_personnel' => 'required|exists:personnels,id_personnel|unique:formateurs,id_personnel'
-        
+            //
         ];
     }
 }

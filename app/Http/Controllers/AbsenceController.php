@@ -13,20 +13,25 @@ class AbsenceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        /// GET /api/model
         $query = Absence::with('personnel');
  
-        if(request()->motif){
-           $query->where('motif','like','%'.request()->motif.'%');
+        ///filters 
+        if ($request->filled('motif')) {
+            $query->where('motif','like','%'.$request->motif.'%');
         }
 
-        if(request()->date_absence){
-            $query->where('date_absence', request()->date_absence);
+        if ($request->filled('date_absence')) {
+            $query->where('date_absence', $request->date_absence);
         }
 
-        if(request()->sort_by){
-            $query->orderBy(request()->sort_by, request()->order ?? 'asc');
+        //secure sorting
+        $allowedSorts = ['date_absence','created_at'];
+
+        if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
+            $query->orderBy($request->sort_by, $request->order ?? 'asc');
         }
 
         $perPage = request()->per_page ?? 10;
@@ -38,6 +43,7 @@ class AbsenceController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * POST /api/model
      */
     public function store(StoreAbsenceRequest $request)
     {
@@ -47,14 +53,18 @@ class AbsenceController extends Controller
     }
     /**
      * Display the specified resource.
+     * GET /api/model/{id}  (id= 12 ou 1 ou 8 ...)
      */
     public function show(string $id)
     {
-        //
+        return new AbsenceResource(
+            Absence::with('personnel')->findOrFail($id)
+        );
     }
 
     /**
      * Update the specified resource in storage.
+     * PUT ou PATCH /api/model/{id}
      */
     public function update(UpdateAbsenceRequest $request, string $id)
     {
@@ -66,6 +76,7 @@ class AbsenceController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * DELETE /api/model/{id}
      */
     public function destroy(string $id)
     {

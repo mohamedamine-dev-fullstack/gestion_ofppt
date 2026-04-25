@@ -13,22 +13,25 @@ class EtablissementController extends Controller
     /** 
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = Etablissement::query();
 
-        if(request()->nom){
-            $query->where('nom','like','%'.request()->nom.'%');
+        if($request->filled('nom')){
+            $query->where('nom', 'like', '%' . $request->nom .'%');
         }
 
-        if(request()->ville){
-           $query->where('ville','like','%'.request()->ville.'%');
+        if($request->filled('ville')){
+            $query->where('ville', 'like', '%' . $request->ville .'%');
         }
+     
+        //secure sorting
+        $allowedSorts = ['nom','ville','created_at'];
 
-        if(request()->sort_by){
-           $query->orderBy(request()->sort_by, request()->order ?? 'asc');
+        if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
+            $query->orderBy($request->sort_by, $request->order ?? 'asc');
         }
-
+        
         $perPage = request()->per_page ?? 10;
 
         return EtablissementResource::collection(

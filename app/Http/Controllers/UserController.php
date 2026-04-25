@@ -14,25 +14,27 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
          $query = User::with('personnel');
 
-         if(request()->name){
-               $query->where('name','like','%'.request()->name.'%');
+         if($request->filled('name')) {
+               $query->where('name','like','%'. $request->name .'%');
          }
 
-         if(request()->email){
-               $query->where('email', request()->email);
+         if($request->filled('email')) {
+               $query->where('email','like','%'. $request->email .'%');
          }
 
-        if(request()->role){
-              $query->where('role', request()->role);
-        }
+        if($request->filled('role')) {
+               $query->where('role','like','%'. $request->role .'%');
+         }
 
         // secure sorting
-        if(request()->sort_by){
-             $query->orderBy(request()->sort_by, request()->order ?? 'asc');
+        $allowedSorts = ['name','created_at'];
+
+        if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
+            $query->orderBy($request->sort_by, $request->order ?? 'asc');
         }
  
          $perPage = request()->per_page ?? 10;
@@ -49,6 +51,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
+
+        //hash password
         $data['password'] = Hash::make($data['password']);
        
         $user = User::create($data);

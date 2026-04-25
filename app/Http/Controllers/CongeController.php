@@ -13,20 +13,23 @@ class CongeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = Conge::with('administratif');
+        $query = Conge::with('personnel');
 
-        if(request()->type_conge){
-             $query->where('type_conge', request()->type_conge);
+         if ($request->filled('type_conge')) {
+            $query->where('type_conge', $request->type_conge);
         }
 
-        if(request()->date_debut){
-             $query->where('date_debut','>=', request()->date_debut);
+        if($request()->filled('date_debut')) {
+             $query->where('date_debut','>=', $request->date_debut);
         }
 
-        if(request()->sort_by){
-             $query->orderBy(request()->sort_by, request()->order ?? 'asc');
+        //  secure sorting
+        $allowedSorts = ['date_debut','date_fin','created_at'];
+
+        if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
+            $query->orderBy($request->sort_by, $request->order ?? 'asc');
         }
 
         $perPage = request()->per_page ?? 10;
@@ -51,7 +54,9 @@ class CongeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return new CongeResource(
+            Conge::with('personnel')->findOrFail($id)
+        );
     } 
 
     /**

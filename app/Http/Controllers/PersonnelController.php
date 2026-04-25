@@ -13,25 +13,27 @@ class PersonnelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = Personnel::with('etablissement');
 
-        if(request()->nom){
-             $query->where('nom','like','%'.request()->nom.'%');
+        if($request->filled('nom')) {
+             $query->where('nom','like','%'. $request->nom .'%');
         }
 
-        if(request()->cin){
-             $query->where('cin', request()->cin);
+        if($request->filled('cin')) {
+             $query->where('cin', $request->cin);
         }
 
-        if(request()->idEtab){
-             $query->where('idEtab', request()->idEtab);
+        if($request->filled('idEtab')) {
+             $query->where('idEtab', $request->idEtab);
         }
          
-        // secure sorting
-        if(request()->sort_by){
-            $query->orderBy(request()->sort_by, request()->order ?? 'asc');
+        //secure sorting
+        $allowedSorts = ['nom','cin','created_at'];
+
+        if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
+            $query->orderBy($request->sort_by, $request->order ?? 'asc');
         }
 
         $perPage = request()->per_page ?? 10;
