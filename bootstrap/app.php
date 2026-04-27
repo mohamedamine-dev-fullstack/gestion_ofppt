@@ -6,7 +6,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use App\Http\Middleware\CheckRole;
+use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Auth\AuthenticationException;
 //use Throwable;
 
@@ -18,12 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        
          //cors
           $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
 
          // Roles
          $middleware->alias([
-              'role' => CheckRole::class,
+              'role' => RoleMiddleware::class,
          ]);
 
          // Disable redirect for unauthenticated API requests( API no redirect)
@@ -67,20 +68,29 @@ return Application::configure(basePath: dirname(__DIR__))
          });
 
          // Default error
-        /* $exceptions->render(function (Throwable $e, $request) {
+         $exceptions->render(function (Throwable $e, $request) {
+
+         if (config('app.debug')) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ], 500);
+         }
+
             return response()->json([
                'status' => 'error',
                'message' => 'Server Error'
             ], 500);
-         });*/
+         });
 
-         // هادي زيدها (debug مؤقت)
-         $exceptions->render(function (Throwable $e, $request) {
+         
+        /* $exceptions->render(function (Throwable $e, $request) {
           return response()->json([
             'error' => $e->getMessage(),
             'file' => $e->getFile(),
             'line' => $e->getLine(),
           ], 500);
-         });
+         });*/
           
     })->create();
