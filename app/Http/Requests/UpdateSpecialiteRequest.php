@@ -12,7 +12,7 @@ class UpdateSpecialiteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,11 @@ class UpdateSpecialiteRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('specialite');
+
         return [
-            //
+            'nom_specialite' => 'required|string|max:255|unique:specialites,nom_specialite,' . $id,
+            'type_specialite' => 'required|in:origine,enseignee',
         ];
     }
 }

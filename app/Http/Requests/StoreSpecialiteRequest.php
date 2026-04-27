@@ -12,7 +12,7 @@ class StoreSpecialiteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,8 @@ class StoreSpecialiteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom_specialite' => 'required|string|max:255|unique:specialites,nom_specialite',
+            'type_specialite' => 'required|in:origine,enseignee',
         ];
     }
 }

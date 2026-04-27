@@ -12,7 +12,7 @@ class StoreDiplomeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,15 @@ class StoreDiplomeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom_diplome' => 'required|string|max:255|unique:diplomes,nom_diplome',
+        ];
+    }
+
+     public function messages(): array
+    {
+        return [
+            'nom_diplome.required' => 'Le nom du diplôme est obligatoire',
+            'nom_diplome.unique' => 'Ce diplôme existe déjà',
         ];
     }
 }

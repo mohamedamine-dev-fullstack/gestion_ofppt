@@ -12,7 +12,7 @@ class UpdateDiplomeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,10 @@ class UpdateDiplomeRequest extends FormRequest
      */
     public function rules(): array
     {
+       $id = $this->route('diplome');
+
         return [
-            //
+            'nom_diplome' => 'required|string|max:255|unique:diplomes,nom_diplome,' . $id,
         ];
     }
 }
