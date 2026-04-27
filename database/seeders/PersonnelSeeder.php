@@ -10,19 +10,28 @@ class PersonnelSeeder extends Seeder
     public function run(): void
     {
         DB::table('personnels')->insert([
+            
             [
+                'cin' => 'AA12345',
                 'nom' => 'Amine',
                 'prenom' => 'Test',
-                'cin' => 'AA12345',
-                'id_etab' => 1,
+                'type_personnel' => 'formateur',
+                'statut' => 'permanent',
+                'date_naissance' => '1995-01-01',
+                'telephone' => '0600000000',
+                'idEtab' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'cin' => 'BB67890',
                 'nom' => 'Sara',
                 'prenom' => 'Ali',
-                'cin' => 'BB67890',
-                'id_etab' => 2,
+                'type_personnel' => 'formateur',
+                'statut' => 'permanent',
+                'date_naissance' => '2006-01-01',
+                'telephone' => '0700000000',
+                'idEtab' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

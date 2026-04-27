@@ -11,21 +11,21 @@ class EtablissementSeeder extends Seeder
     {
         DB::table('etablissements')->insert([
             [
-                'id_etab' => 1,
+                'idEtab' => 1,
                 'nom' => 'OFPPT Casa',
                 'ville' => 'Casablanca',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id_etab' => 2,
+                'idEtab' => 2,
                 'nom' => 'OFPPT Rabat',
                 'ville' => 'Rabat',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id_etab' => 3,
+                'idEtab' => 3,
                 'nom' => 'OFPPT Tanger',
                 'ville' => 'Tanger',
                 'created_at' => now(),
