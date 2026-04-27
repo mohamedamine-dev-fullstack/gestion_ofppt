@@ -18,13 +18,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias([
+         //cors
+          $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
+
+         // Roles
+         $middleware->alias([
               'role' => CheckRole::class,
          ]);
 
-          // 🔥 هادي هي الحل
+         // Disable redirect for unauthenticated API requests( API no redirect)
         $middleware->redirectGuestsTo(function () {
-             return null; // ❌ ماتدير حتى redirect
+             return null; 
         });  
 
     })
@@ -70,7 +74,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 500);
          });*/
 
-         // 👇 هادي زيدها (debug مؤقت)
+         // هادي زيدها (debug مؤقت)
          $exceptions->render(function (Throwable $e, $request) {
           return response()->json([
             'error' => $e->getMessage(),
