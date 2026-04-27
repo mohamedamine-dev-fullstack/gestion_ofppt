@@ -23,9 +23,9 @@ class StorePersonnelRequest extends FormRequest
     public function rules(): array
     {
         return [
-              'cin' => 'required|string|max:20|unique:personnels,cin',
               'nom' => 'required|string|max:255',
               'prenom' => 'required|string|max:255',
+              'cin' => 'required|unique:personnels,cin',
               'type_personnel' => 'required|in:formateur,administratif',
               'statut' => 'required|in:permanent,vacataire',
               'date_naissance' => 'nullable|date',
