@@ -27,7 +27,7 @@ class StoreUserRequest extends FormRequest
              'email' => 'required|email|unique:users,email',
              'password' => 'required|min:6',
              'role' => 'required|in:directeur du complexe,gestionnaire CFMR',
-             'id_personnel' => 'required|exists:administratifs,id_personnel'
+             'idPersonnel' => 'required|exists:administratifs,idPersonnel'
         ];
     }
 }

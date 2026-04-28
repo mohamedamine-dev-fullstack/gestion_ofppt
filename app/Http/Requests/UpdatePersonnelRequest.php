@@ -26,7 +26,7 @@ class UpdatePersonnelRequest extends FormRequest
            'nom' => 'sometimes|string|max:255',
            'prenom' => 'sometimes|string|max:255',
            'cin' => 'sometimes|string|max:20',
-           'id_etab' => 'sometimes|exists:etablissements,id_etab'
+           'idEtab' => 'sometimes|exists:etablissements,idEtab'
         ];
     }
 }

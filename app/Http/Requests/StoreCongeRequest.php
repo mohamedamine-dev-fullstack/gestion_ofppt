@@ -26,7 +26,7 @@ class StoreCongeRequest extends FormRequest
             'date_debut' => 'required|date',
             'date_fin' => 'required|date|after_or_equal:date_debut',
             'type_conge' => 'required|string',
-            'id_personnel' => 'required|exists:administratifs,id_personnel'
+            'idPersonnel' => 'required|exists:administratifs,idPersonnel'
         ];
     }
 }

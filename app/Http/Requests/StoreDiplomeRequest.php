@@ -31,7 +31,7 @@ class StoreDiplomeRequest extends FormRequest
     {
         return [
             'nom_diplome.required' => 'Le nom du diplôme est obligatoire',
-            'nom_diplome.unique' => 'Ce diplôme existe déjà',
+           /* 'nom_diplome.unique' => 'Ce diplôme existe déjà',*/
         ];
     }
 }
