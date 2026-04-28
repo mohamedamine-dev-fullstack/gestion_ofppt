@@ -24,7 +24,11 @@ class AuthController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return $this->error('Invalid credentials', 401);
         }
-
+        
+        // Revoke all previous tokens
+        $user->tokens()->delete();
+        
+        //token generation
         $token = $user->createToken('api-token')->plainTextToken;
 
         return $this->success([
