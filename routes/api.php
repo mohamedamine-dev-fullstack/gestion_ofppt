@@ -12,19 +12,25 @@ use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EtablissementController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 
 
 // Auth routes
 Route::post('/login', [AuthController::class, 'login'])
        ->middleware('throttle:10,1'); // Limit login attempts to 10 per minute
 
+// Registration route (optional, can be removed if only admins create users)       
 Route::post('/register', [AuthController::class, 'register']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     
+    // Logout route
     Route::post('/logout', [AuthController::class, 'logout']);
     
+    // User profile route
+    Route::get('/profile', [ProfileController::class, 'me']);
+         
 
     // controller → باقي الموارد → roles (directeur du complexe,gestionnaire CFMR)
     Route::middleware('role:directeur du complexe,gestionnaire CFMR')->group(function () {
