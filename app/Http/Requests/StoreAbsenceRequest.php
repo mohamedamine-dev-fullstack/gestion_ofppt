@@ -25,7 +25,7 @@ class StoreAbsenceRequest extends FormRequest
         return [
             'date_absence' => 'required|date',
             'motif' => 'required|string',
-            'idPersonnel' => 'required|exists:personnels,id_personnel'
+            'idPersonnel' => 'required|exists:personnels,idPersonnel'
         ];
     }
 }
