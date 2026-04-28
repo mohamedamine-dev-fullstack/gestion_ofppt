@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Models\Etablissement;
 use App\Models\Diplome;
 use App\Models\Specialite;
@@ -15,7 +16,7 @@ class Personnel extends Model
     protected $primaryKey = 'idPersonnel';
 
     protected $fillable = [
-        'CIN',
+        'cin',
         'nom',
         'prenom',
         'type_personnel',
