@@ -18,8 +18,8 @@ class UserController extends Controller
     {
          $query = User::with('personnel');
 
-         if($request->filled('name')) {
-               $query->where('name','like','%'. $request->name .'%');
+         if($request->filled('username')) {
+               $query->where('username','like','%'. $request->username .'%');
          }
 
          if($request->filled('email')) {
@@ -31,7 +31,7 @@ class UserController extends Controller
          }
 
         // secure sorting
-        $allowedSorts = ['name','created_at'];
+        $allowedSorts = ['username','created_at'];
 
         if ($request->filled('sort_by') && in_array($request->sort_by, $allowedSorts)) {
             $query->orderBy($request->sort_by, $request->order ?? 'asc');

@@ -21,7 +21,7 @@ class CongeController extends Controller
             $query->where('type_conge', $request->type_conge);
         }
 
-        if($request()->filled('date_debut')) {
+        if($request->filled('date_debut')) {
              $query->where('date_debut','>=', $request->date_debut);
         }
 

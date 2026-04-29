@@ -25,5 +25,7 @@ class UserSeeder extends Seeder
             'Role' => 'gestionnaire CFMR',
             'idPersonnel' => null
         ]);
+         
+        $this->command->info('✅ 2 utilisateurs créés !');
     }
 }
