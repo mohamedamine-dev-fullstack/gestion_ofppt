@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
              EtablissementSeeder::class,
              PersonnelSeeder::class,
              AbsenceSeeder::class,
+             DiplomeSeeder::class,
+             SpecialiteSeeder::class,
+             CongeSeeder::class,
         ]);
     }
 }
